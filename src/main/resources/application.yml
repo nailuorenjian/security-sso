@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: demo
+
+  # 如果不需要数据库，可以先注释掉下面这两块
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          keycloak:
+            # 👉 确保这里是 8081
+            entity-id: "http://localhost:8081/saml2/service-provider-metadata/keycloak"
+            signing:
+              credentials:
+                - private-key-location: "classpath:sp-private.key"
+                  certificate-location: "classpath:sp-certificate.crt"
+            assertingparty:
+              # 👉 关键点：这里改为 saml-test (全小写)，与你浏览器看到的 XML 路径一致
+              metadata-uri: "http://localhost:8080/auth/realms/saml-test/protocol/saml/descriptor"
