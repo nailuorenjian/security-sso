@@ -5,13 +5,6 @@ spring:
   application:
     name: demo
 
-  # 如果不需要数据库，可以先注释掉下面这两块
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: root
-    driver-class-name: org.postgresql.Driver
-
   session:
     store-type: jdbc
     jdbc:
