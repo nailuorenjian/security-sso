@@ -5,6 +5,12 @@ spring:
   application:
     name: demo
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
   session:
     store-type: jdbc
     jdbc:

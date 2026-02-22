@@ -14,12 +14,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/test2").permitAll()   // ✅ 放行
-                .anyRequest().authenticated()        // 其他必须登录
+                .antMatchers("/test2").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .saml2Login();                           // 启用 SAML2
+                .saml2Login(saml2 -> saml2
+                        // 确保验证通过后跳回你的业务接口
+                        .defaultSuccessUrl("/test", true)
+                );
 
         return http.build();
     }
-}
 
+}
